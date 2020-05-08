@@ -18,3 +18,47 @@ No. & Dataset       & No. of cells & No. of genes & No. of types & Protocol   & 
 6   & Kolodziejczyk & 704          & 38653        & 9            & SMARTer    & Stem Cells   &     \\ \hline
 \end{tabular}}
 \end{table}
+
+\begin{table}[htb!]
+\centering
+\caption{NMI of clustering performance of Autoencoder, VAE and ZIVA}
+\label{nmi3ae}
+\begin{tabular}{llll}
+\hline
+  & AE   & VAE  & ZIVA \\ \hline
+1 & 0.82 & 0.89 & 0.84 \\
+2 & 0.64 & 0.67 & 0.67 \\
+3 & 0.76 & 0.77 & 0.79 \\
+4 & 0.67 & 0.69 & 0.69 \\
+5 & 0.67 & 0.72 & 0.94 \\
+6 & 0.58 & 0.51 & 0.60 \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[htb!]
+\centering
+\caption{ARI of clustering performance of Autoencoder, VAE and ZIVA}
+\label{ari3ae}
+\begin{tabular}{llll}
+\hline
+  & AE   & VAE  & ZIVA \\ \hline
+1 & 0.73 & 0.87 & 0.75 \\
+2 & 0.37 & 0.41 & 0.43 \\
+3 & 0.63 & 0.74 & 0.64 \\
+4 & 0.48 & 0.52 & 0.51 \\
+5 & 0.72 & 0.54 & 0.98 \\
+6 & 0.40 & 0.33 & 0.43 \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[htb!]
+\centering
+\caption{NMI and ARI of clustering performance of ZIVA under different latent dimensions.}
+\label{dimt}
+\begin{tabular}{lllllllll}
+\hline
+    & 2    & 4    & 6    & 8    & 10   & 15   & 20   & All  \\ \hline
+NMI & 0.72 & 0.69 & 0.70 & 0.70 & 0.69 & 0.69 & 0.69 & 0.73 \\
+ARI & 0.51 & 0.43 & 0.46 & 0.46 & 0.46 & 0.45 & 0.44 & 0.52 \\ \hline
+\end{tabular}
+\end{table}
