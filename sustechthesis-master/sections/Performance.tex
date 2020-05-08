@@ -28,40 +28,22 @@ Suppose n is the number of total cells, ai is the number of cells that are clust
 \begin{equation}
     ARI = \frac{\sum_{i j}\left(\begin{array}{c}n_{i j} \\ 2\end{array}\right)-\frac{\left[\sum_{i}\left(\begin{array}{c}a_{i} \\ 2\end{array}\right) \sum_{j}\left(\begin{array}{c}b_{j} \\ 2\end{array}\right)\right]}{\left(\begin{array}{l}n \\ 2\end{array}\right)}}{\frac{1}{2}\left[\sum_{i}\left(\begin{array}{c}a_{i} \\ 2\end{array}\right)+\sum_{j}\left(\begin{array}{c}b_{j} \\ 2\end{array}\right)\right]-\frac{\left[\sum_{i}\left(\begin{array}{c}a_{i} \\ 2\end{array}\right) \sum_{j}\left(\begin{array}{c}b_{j} \\ 2\end{array}\right)\right]}{\left(\begin{array}{l}n \\ 2\end{array}\right)}}
 \end{equation}
-The results are shown in Table \ref{nmiall} and Table \ref{ariall}. In some cases, ZIVA outperforms other methods such as the dataset5. However, sometimes ZIVA doesn't perform well on clustering tasks.
-\begin{table}[htb!]
-\centering
-\caption{NMI of each dataset on different methods}
-\label{nmiall}
-\resizebox{10cm}{!}{
-\begin{tabular}{llllllll}
-\hline
-  & PCA  & tSNE & UMAP & ZIFA & VASC & Ivis & ZIVA \\ \hline
-1 & 0.88 & 0.92 & 0.92 & 0.60 & 0.79 & 0.86 & 0.84 \\
-2 & 0.57 & 0.67 & 0.71 & 0.59 & 0.65 & 0.65 & 0.67 \\
-3 & 0.79 & 0.87 & 0.91 & 0.79 & 0.75 & 0.81 & 0.79 \\
-4 & 0.70 & 0.78 & 0.81 & 0.60 & 0.72 & 0.81 & 0.66 \\
-5 & 0.86 & 0.73 & 0.73 & 0.76 & 0.48 & 0.94 & 0.94 \\
-6 & 0.70 & 0.84 & 0.87 & 0.66 & 0.25 & 0.65 & 0.60 \\ \hline
-\end{tabular}}
-\end{table}
+The results are shown in Figure \ref{nmiallf}, \ref{ariallf} and Table \ref{nmiall}, \ref{ariall}. In some cases, ZIVA outperforms other methods such as the dataset5. However, sometimes ZIVA doesn't perform well on clustering tasks.
 
-\begin{table}[htb!]
-\centering
-\caption{ARI of each dataset on different methods}
-\label{ariall}
-\resizebox{10cm}{!}{
-\begin{tabular}{llllllll}
-\hline
-  & PCA  & tSNE & UMAP & ZIFA & VASC & Ivis & ZIVA \\ \hline
-1 & 0.79 & 0.84 & 0.84 & 0.44 & 0.65 & 0.80 & 0.73 \\
-2 & 0.34 & 0.41 & 0.48 & 0.36 & 0.39 & 0.39 & 0.43 \\
-3 & 0.63 & 0.78 & 0.90 & 0.63 & 0.60 & 0.74 & 0.64 \\
-4 & 0.56 & 0.61 & 0.64 & 0.42 & 0.54 & 0.70 & 0.47 \\
-5 & 0.71 & 0.54 & 0.54 & 0.75 & 0.45 & 0.97 & 0.98 \\
-6 & 0.48 & 0.74 & 0.77 & 0.48 & 0.11 & 0.48 & 0.43 \\ \hline
-\end{tabular}}
-\end{table}
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/myfigures/nmiallf.png}
+    \caption{NMI of clustering performance of seven methods on six datasets}
+    \label{nmiallf}
+\end{figure}
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/myfigures/ariallf.png}
+    \caption{ARI of clustering performance of seven methods on six datasets}
+    \label{ariallf}
+\end{figure}
+
 
 \subsection{Trajectory inference performance assessment}
 Next, we tested the performance of ZIVA for trajectory cells. We used a dataset for pancreatic a and b cell development. They performed the single cell RNA sequencing at several developmental stages of E17.5, P0, P3, P9, P15, P18 and P60 of $a-$ and $b-$ cells that were sorted from mouse strains by fluorescence-activated cell sorting. We performed the PCA, tSNE, UMAP, Ivis and ZIVA to that datasets. The result shows that ZIVA can successfully recover the developmental lineage from both a- and b- pancreatic cells (Figure \ref{traj}). Other methods can also separate two cell types but contains more mixed points.  

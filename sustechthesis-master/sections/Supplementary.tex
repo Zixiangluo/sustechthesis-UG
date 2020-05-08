@@ -1,6 +1,18 @@
 % !Mode:: "TeX:UTF-8"
 % !TEX program  = xelatex
 \section{Supplementary materials}
+\noindent\emph{Datasets} \\
+To test the performance of the ZIVA method, seven datasets were used in this study. The first six datasets were downloaded from the Hemberg group (https://hemberg-lab. github.io/scRNA.seq.datasets). The seventh dataset was obtained from GEO database with accession number GSE87375.
+
+\vspace{0.5cm}
+\noindent\emph{Software and packages} \\
+The PCA, tSNE and UMAP was performed using the Seurat R package from \url{https://satijalab.org/seurat/} []. It first performs normalization and scaling to the data. Then, run the three dimensionality reduction methods.\\
+The ZIFA, VASC, Ivis codes was download and ran after normalization and scaling of the count data.\\
+The ZIFA was performed using the package from \url{https://github.com/epierson9/ZIFA}, the block algorithm was used.\\
+The codes of VASC was downloaded from \url{https://github.com/wang-research/VASC}.\\
+The Ivis package was downloaded following the \url{https://github.com/beringresearch/ivis}.\\
+
+
 
 \begin{table}[htb!]
 \centering
@@ -19,37 +31,75 @@ No. & Dataset       & No. of cells & No. of genes & No. of types & Protocol   & 
 \end{tabular}}
 \end{table}
 
+
 \begin{table}[htb!]
 \centering
-\caption{NMI of clustering performance of Autoencoder, VAE and ZIVA}
-\label{nmi3ae}
-\begin{tabular}{llll}
+\caption{NMI of clustering performance of seven methods on six datasets}
+\label{nmiall}
+\resizebox{10cm}{!}{
+\begin{tabular}{llllllll}
 \hline
-  & AE   & VAE  & ZIVA \\ \hline
-1 & 0.82 & 0.89 & 0.84 \\
-2 & 0.64 & 0.67 & 0.67 \\
-3 & 0.76 & 0.77 & 0.79 \\
-4 & 0.67 & 0.69 & 0.69 \\
-5 & 0.67 & 0.72 & 0.94 \\
-6 & 0.58 & 0.51 & 0.60 \\ \hline
+  & PCA  & tSNE & UMAP & ZIFA & VASC & Ivis & ZIVA \\ \hline
+1 & 0.88 & 0.92 & 0.92 & 0.60 & 0.79 & 0.86 & 0.84 \\
+2 & 0.57 & 0.67 & 0.71 & 0.59 & 0.65 & 0.65 & 0.67 \\
+3 & 0.79 & 0.87 & 0.91 & 0.79 & 0.75 & 0.81 & 0.79 \\
+4 & 0.70 & 0.78 & 0.81 & 0.60 & 0.72 & 0.81 & 0.66 \\
+5 & 0.86 & 0.73 & 0.73 & 0.76 & 0.48 & 0.94 & 0.94 \\
+6 & 0.70 & 0.84 & 0.87 & 0.66 & 0.25 & 0.65 & 0.60 \\ \hline
+\end{tabular}}
+\end{table}
+
+\begin{table}[htb!]
+\centering
+\caption{NMI of clustering performance of seven methods on six datasets}
+\label{ariall}
+\resizebox{10cm}{!}{
+\begin{tabular}{llllllll}
+\hline
+  & PCA  & tSNE & UMAP & ZIFA & VASC & Ivis & ZIVA \\ \hline
+1 & 0.79 & 0.84 & 0.84 & 0.44 & 0.65 & 0.80 & 0.73 \\
+2 & 0.34 & 0.41 & 0.48 & 0.36 & 0.39 & 0.39 & 0.43 \\
+3 & 0.63 & 0.78 & 0.90 & 0.63 & 0.60 & 0.74 & 0.64 \\
+4 & 0.56 & 0.61 & 0.64 & 0.42 & 0.54 & 0.70 & 0.47 \\
+5 & 0.71 & 0.54 & 0.54 & 0.75 & 0.45 & 0.97 & 0.98 \\
+6 & 0.48 & 0.74 & 0.77 & 0.48 & 0.11 & 0.48 & 0.43 \\ \hline
+\end{tabular}}
+\end{table}
+
+\begin{table}[htb!]
+\centering
+\caption{NMI and ARI of clustering performance of Autoencoder, VAE and ZIVA.}
+\label{t3ae}
+\begin{tabular}{lllllll}
+\hline
+  & \multicolumn{3}{l}{NMI} & \multicolumn{3}{l}{ARI} \\ \hline
+  & AE     & VAE    & ZIVA  & AE     & VAE    & ZIVA  \\ \hline
+1 & 0.82   & 0.89   & 0.84  & 0.73   & 0.87   & 0.75  \\
+2 & 0.64   & 0.67   & 0.67  & 0.37   & 0.41   & 0.43  \\
+3 & 0.76   & 0.77   & 0.79  & 0.63   & 0.74   & 0.64  \\
+4 & 0.67   & 0.69   & 0.69  & 0.48   & 0.52   & 0.51  \\
+5 & 0.67   & 0.72   & 0.94  & 0.72   & 0.54   & 0.98  \\
+6 & 0.58   & 0.51   & 0.60  & 0.40   & 0.33   & 0.43  \\ \hline
 \end{tabular}
 \end{table}
 
 \begin{table}[htb!]
 \centering
-\caption{ARI of clustering performance of Autoencoder, VAE and ZIVA}
-\label{ari3ae}
-\begin{tabular}{llll}
+\caption{NMI and ARI of clustering performance of ZIVA under different dropout model.}
+\label{tnbmm}
+\begin{tabular}{lllll}
 \hline
-  & AE   & VAE  & ZIVA \\ \hline
-1 & 0.73 & 0.87 & 0.75 \\
-2 & 0.37 & 0.41 & 0.43 \\
-3 & 0.63 & 0.74 & 0.64 \\
-4 & 0.48 & 0.52 & 0.51 \\
-5 & 0.72 & 0.54 & 0.98 \\
-6 & 0.40 & 0.33 & 0.43 \\ \hline
+  & \multicolumn{2}{l}{NMI} & \multicolumn{2}{l}{ARI} \\ \hline
+  & NB         & MM         & NB         & MM         \\ \hline
+1 & 0.84       & 0.84       & 0.75       & 0.78       \\
+2 & 0.67       & 0.63       & 0.41       & 0.34       \\
+3 & 0.79       & 0.87       & 0.64       & 0.78       \\
+4 & 0.69       & 0.68       & 0.52       & 0.51       \\
+5 & 0.94       & 0.83       & 0.98       & 0.67       \\
+6 & 0.61       & 0.64       & 0.44       & 0.47       \\ \hline
 \end{tabular}
 \end{table}
+
 
 \begin{table}[htb!]
 \centering
