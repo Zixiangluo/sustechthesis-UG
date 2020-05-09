@@ -2,7 +2,7 @@
 % !TEX program  = xelatex
 \section{Performance assessment}
 \subsection{Visualization}
-To evaluate the performance of ZIVA, we tested the visualization result of ZIVA and six other popular methods including PCA [], tSNE [], UMAP [], ZIFA [], VASC [] and ivis [] on 6 datasets with different number of cells and different sequencing protocols (Table \ref{datasets}). The visualization result is shown in Figure \ref{vis}.
+To evaluate the performance of ZIVA, we tested the visualization result of ZIVA and six other popular methods including PCA \cite{Abdi2010}, tSNE \cite{maaten2008visualizing}, UMAP \cite{McInnes2018}, ZIFA \cite{Pierson2015}, VASC \cite{Wang2018} and ivis \cite{Szubert2019} on 6 datasets with different number of cells and different sequencing protocols (Table \ref{datasets}). The visualization result is shown in Figure \ref{vis}.
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=1\textwidth]{figures/myfigures/visualizations.png}
@@ -13,7 +13,7 @@ The results show that ZIVA has great performance all of six datasets. The cluste
 The Yan dataset (Figure2.C) contains several types of embryonic cells from zygote to blast. VASC not only separate different cell types perfectly, but also greatly reconstructed the developmental stages of the cells. We can tell the developmental lineage (zygote, 2cell, 4cell, 8cell, 16cell, blast) from the visualization by ZIVA. PCA, Ivis, VASC and ZIFA also generated the lineage structure, but not as clear as in ZIVA. However, tSNE and UMAP that focus on local structure didn’t successfully recover the developmental relationships. It shows that ZIVA has superior performance on modelling embryo development progression than ZIFA, tSNE and UMAP. \\
 The Kolodziejczyk dataset contains the embryonic cells grown from three different conditions: serum, 2i and alternate 2i (a2i). Under each condition, there are different batches of cells. It can be seen that ZIVA, Ivis and ZIFA well separated different culture conditions and several batches. PCA can also separate the conditions but batches are slightly mixed. VASC generated a mussy result. tSNE and UMAP formed beautiful clusters but failed to distinguish three conditions.
 \subsection{Clustering performance}
-Next, to quantitatively measure the performance of different methods, we evaluate the result of visualization by applying clustering to the dimensionality reduced 2D data. We used K-means to cluster cells and set k to the number of known cell types. Then, we compared the clustering results to the ground truth clusters that are annotated in the original papers. We used the normalized mutual information (NMI) and the adjusted rand index (ARI) to evaluate the performance of different methods. 
+Next, to quantitatively measure the performance of different methods, we evaluate the result of visualization by applying clustering to the dimensionality reduced 2D data. We used K-means to cluster cells and set k to the number of known cell types. Then, we compared the clustering results to the ground truth clusters that are annotated in the original papers. We used the normalized mutual information (NMI) \cite{strehl2002cluster} and the adjusted rand index (ARI) \cite{hubert1985comparing} to evaluate the performance of different methods. 
 
 \vspace{0.5cm}
 \noindent\emph{NMI} \\
@@ -24,7 +24,7 @@ Suppose T is the true cell types, P is the predicted cell types, H(X) means the 
 
 \vspace{0.5cm}
 \noindent\emph{ARI} \\
-Suppose n is the number of total cells, ai is the number of cells that are clustered to the i-th cluster pf P, bj is the number of cells that belong to the j-th cell types in T. nij is the number of cells that overlap the i-th cluster in P and j-th cell types in T. Then, ARI can be computed as following:
+Suppose n is the number of total cells, $a_i$ is the number of cells that are clustered to the $i-th$ cluster of $P$, $b_j$ is the number of cells that belong to the $j-th$ cell types in $T$. $n_{ij}$ is the number of cells that overlap the $i-th$ cluster in $P$ and $j-th$ cell types in $T$. Then, ARI can be computed as following:
 \begin{equation}
     ARI = \frac{\sum_{i j}\left(\begin{array}{c}n_{i j} \\ 2\end{array}\right)-\frac{\left[\sum_{i}\left(\begin{array}{c}a_{i} \\ 2\end{array}\right) \sum_{j}\left(\begin{array}{c}b_{j} \\ 2\end{array}\right)\right]}{\left(\begin{array}{l}n \\ 2\end{array}\right)}}{\frac{1}{2}\left[\sum_{i}\left(\begin{array}{c}a_{i} \\ 2\end{array}\right)+\sum_{j}\left(\begin{array}{c}b_{j} \\ 2\end{array}\right)\right]-\frac{\left[\sum_{i}\left(\begin{array}{c}a_{i} \\ 2\end{array}\right) \sum_{j}\left(\begin{array}{c}b_{j} \\ 2\end{array}\right)\right]}{\left(\begin{array}{l}n \\ 2\end{array}\right)}}
 \end{equation}
@@ -46,7 +46,7 @@ The results are shown in Figure \ref{nmiallf}, \ref{ariallf} and Table \ref{nmia
 
 
 \subsection{Trajectory inference performance assessment}
-Next, we tested the performance of ZIVA for trajectory cells. We used a dataset for pancreatic a and b cell development. They performed the single cell RNA sequencing at several developmental stages of E17.5, P0, P3, P9, P15, P18 and P60 of $a-$ and $b-$ cells that were sorted from mouse strains by fluorescence-activated cell sorting. We performed the PCA, tSNE, UMAP, Ivis and ZIVA to that datasets. The result shows that ZIVA can successfully recover the developmental lineage from both a- and b- pancreatic cells (Figure \ref{traj}). Other methods can also separate two cell types but contains more mixed points.  
+Next, we tested the performance of ZIVA for trajectory cells. We used a dataset for pancreatic a and b cell development \cite{qiu2017deciphering}. They performed the single cell RNA sequencing at several developmental stages of E17.5, P0, P3, P9, P15, P18 and P60 of $a-$ and $b-$ cells that were sorted from mouse strains by fluorescence-activated cell sorting. We performed the PCA, tSNE, UMAP, Ivis and ZIVA to that datasets. The result shows that ZIVA can successfully recover the developmental lineage from both a- and b- pancreatic cells (Figure \ref{traj}). Other methods can also separate two cell types but contains more mixed points.  
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=1\textwidth]{figures/myfigures/traj.png}
