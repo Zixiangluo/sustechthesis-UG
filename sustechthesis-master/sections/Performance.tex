@@ -1,6 +1,15 @@
 % !Mode:: "TeX:UTF-8"
 % !TEX program  = xelatex
 \section{Performance assessment}
+\subsection{Simulation data}
+To evaluate the performance of ZIVA, we first performed ZIVA on two datasets simulated by Splatter \cite{zappia2017splatter}. We simulated one datasets of five groups and one dataset of five paths. The percentage of groups were set as 0.1, 0.1, 0.2, 0.2 and 0.4. The differential probability was 0.3. The visualization results are shown in Figure \ref{sim}. It can be seen that ZIVA and correctly distinguish the five groups and paths. However, compared with tSNE and UMAP, the points in ZIVA are more dispersive.
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/myfigures/simdata.png}
+    \caption{Visualization of simulated scRNA-seq datasets}
+    \label{sim}
+\end{figure}
+
 \subsection{Visualization}
 To evaluate the performance of ZIVA, we tested the visualization result of ZIVA and six other popular methods including PCA \cite{Abdi2010}, tSNE \cite{maaten2008visualizing}, UMAP \cite{McInnes2018}, ZIFA \cite{Pierson2015}, VASC \cite{Wang2018} and ivis \cite{Szubert2019} on 6 datasets with different number of cells and different sequencing protocols (Table \ref{datasets}). The visualization result is shown in Figure \ref{vis}.
 \begin{figure}[htb!]
@@ -9,9 +18,41 @@ To evaluate the performance of ZIVA, we tested the visualization result of ZIVA 
     \caption{Visualization of scRNA-seq datasets}
     \label{vis}
 \end{figure}
-The results show that ZIVA has great performance all of six datasets. The clusters in the datasets can be well identified and cell lineages are also well recovered. For example, the Pollen dataset (Figure2.A) contains eleven different types of cells including blood, dermal, neural and pluripotent cells. ZIVA and most other methods except ZIFA can clearly separate them to different clusters. \\
-The Yan dataset (Figure2.C) contains several types of embryonic cells from zygote to blast. VASC not only separate different cell types perfectly, but also greatly reconstructed the developmental stages of the cells. We can tell the developmental lineage (zygote, 2cell, 4cell, 8cell, 16cell, blast) from the visualization by ZIVA. PCA, Ivis, VASC and ZIFA also generated the lineage structure, but not as clear as in ZIVA. However, tSNE and UMAP that focus on local structure didn’t successfully recover the developmental relationships. It shows that ZIVA has superior performance on modelling embryo development progression than ZIFA, tSNE and UMAP. \\
+The results show that ZIVA has great performance all of six datasets. The clusters in the datasets can be well identified and cell lineages are also well recovered. For example, the Pollen dataset (Figure2.A) contains eleven different types of cells including blood, dermal, neural and pluripotent cells. ZIVA and most other methods except ZIFA can clearly separate them to different clusters. 
+
+The Yan dataset (Figure2.C) contains several types of embryonic cells from zygote to blast. VASC not only separate different cell types perfectly, but also greatly reconstructed the developmental stages of the cells. We can tell the developmental lineage (zygote, 2cell, 4cell, 8cell, 16cell, blast) from the visualization by ZIVA. PCA, Ivis, VASC and ZIFA also generated the lineage structure, but not as clear as in ZIVA. However, tSNE and UMAP that focus on local structure didn’t successfully recover the developmental relationships. It shows that ZIVA has superior performance on modelling embryo development progression than ZIFA, tSNE and UMAP. 
+
 The Kolodziejczyk dataset contains the embryonic cells grown from three different conditions: serum, 2i and alternate 2i (a2i). Under each condition, there are different batches of cells. It can be seen that ZIVA, Ivis and ZIFA well separated different culture conditions and several batches. PCA can also separate the conditions but batches are slightly mixed. VASC generated a mussy result. tSNE and UMAP formed beautiful clusters but failed to distinguish three conditions.
+
+\vspace{0.5cm}
+\noindent\emph{Datasets} \\
+To test the performance of the ZIVA method, seven datasets were used in this study. The first six datasets were downloaded from the Hemberg group (https://hemberg-lab. github.io/scRNA.seq.datasets). The seventh dataset was obtained from GEO database with accession number GSE87375.
+
+\vspace{0.5cm}
+\noindent\emph{Software and packages} \\
+The PCA, tSNE and UMAP was performed using the Seurat R package from \url{https://satijalab.org/seurat/}, following the tutorial from \url{https://satijalab.org/seurat/v3.1/pbmc3k_tutorial.html}. It first performs normalization and scaling to the data. Then, run the three dimensionality reduction methods.\\
+The ZIFA, VASC, Ivis codes was download and ran after normalization and scaling of the count data.\\
+The ZIFA was performed using the package from \url{https://github.com/epierson9/ZIFA}, the block algorithm was used.\\
+The codes of VASC was downloaded from \url{https://github.com/wang-research/VASC}.\\
+The Ivis package was downloaded following the \url{https://github.com/beringresearch/ivis}.
+
+\begin{table}[htb!]
+\centering
+\caption{scRNA-seq datasets used in this study}
+\label{datasets}
+\resizebox{13cm}{!}{
+\begin{tabular}{llllllll}
+\hline
+No. & Dataset       & No. of cells & No. of genes & No. of types & Protocol   & Tissue       & ref \\ \hline
+1   & Pollen        & 301          & 23730        & 11           & SMARTer    & Multiple     & \cite{pollen2014low}   \\
+2   & Jin           & 2610         & 2274         & 19           & inDrop     & HSPC         & Jin \\
+3   & Yan           & 90           & 20214        & 6            & Tang       & Embryo Devel &  \cite{yan2013single}  \\
+4   & Camp          & 777          & 19020        & 7            & SMARTer    & Liver        & \cite{camp2017multilineage} \\
+5   & Goolam        & 124          & 41480        & 5            & Smart-seq2 & Embryo devel &  \cite{goolam2016heterogeneity}\\
+6   & Kolodziejczyk & 704          & 38653        & 9            & SMARTer    & Stem Cells   &    \cite{kolodziejczyk2015single} \\ \hline
+\end{tabular}}
+\end{table}
+
 \subsection{Clustering performance}
 Next, to quantitatively measure the performance of different methods, we evaluate the result of visualization by applying clustering to the dimensionality reduced 2D data. We used K-means to cluster cells and set k to the number of known cell types. Then, we compared the clustering results to the ground truth clusters that are annotated in the original papers. We used the normalized mutual information (NMI) \cite{strehl2002cluster} and the adjusted rand index (ARI) \cite{hubert1985comparing} to evaluate the performance of different methods. 
 
@@ -44,6 +85,39 @@ The results are shown in Figure \ref{nmiallf}, \ref{ariallf} and Table \ref{nmia
     \label{ariallf}
 \end{figure}
 
+\begin{table}[htb!]
+\centering
+\caption{NMI of clustering performance of seven methods on six datasets}
+\label{nmiall}
+\resizebox{10cm}{!}{
+\begin{tabular}{llllllll}
+\hline
+  & PCA  & tSNE & UMAP & ZIFA & VASC & Ivis & ZIVA \\ \hline
+1 & 0.88 & 0.92 & 0.92 & 0.60 & 0.79 & 0.86 & 0.84 \\
+2 & 0.57 & 0.67 & 0.71 & 0.59 & 0.65 & 0.65 & 0.67 \\
+3 & 0.79 & 0.87 & 0.91 & 0.79 & 0.75 & 0.81 & 0.79 \\
+4 & 0.70 & 0.78 & 0.81 & 0.60 & 0.72 & 0.81 & 0.66 \\
+5 & 0.86 & 0.73 & 0.73 & 0.76 & 0.48 & 0.94 & 0.94 \\
+6 & 0.70 & 0.84 & 0.87 & 0.66 & 0.25 & 0.65 & 0.60 \\ \hline
+\end{tabular}}
+\end{table}
+
+\begin{table}[htb!]
+\centering
+\caption{ARI of clustering performance of seven methods on six datasets}
+\label{ariall}
+\resizebox{10cm}{!}{
+\begin{tabular}{llllllll}
+\hline
+  & PCA  & tSNE & UMAP & ZIFA & VASC & Ivis & ZIVA \\ \hline
+1 & 0.79 & 0.84 & 0.84 & 0.44 & 0.65 & 0.80 & 0.73 \\
+2 & 0.34 & 0.41 & 0.48 & 0.36 & 0.39 & 0.39 & 0.43 \\
+3 & 0.63 & 0.78 & 0.90 & 0.63 & 0.60 & 0.74 & 0.64 \\
+4 & 0.56 & 0.61 & 0.64 & 0.42 & 0.54 & 0.70 & 0.47 \\
+5 & 0.71 & 0.54 & 0.54 & 0.75 & 0.45 & 0.97 & 0.98 \\
+6 & 0.48 & 0.74 & 0.77 & 0.48 & 0.11 & 0.48 & 0.43 \\ \hline
+\end{tabular}}
+\end{table}
 
 \subsection{Trajectory inference performance assessment}
 Next, we tested the performance of ZIVA for trajectory cells. We used a dataset for pancreatic a and b cell development \cite{qiu2017deciphering}. They performed the single cell RNA sequencing at several developmental stages of E17.5, P0, P3, P9, P15, P18 and P60 of $a-$ and $b-$ cells that were sorted from mouse strains by fluorescence-activated cell sorting. We performed the PCA, tSNE, UMAP, Ivis and ZIVA to that datasets. The result shows that ZIVA can successfully recover the developmental lineage from both a- and b- pancreatic cells (Figure \ref{traj}). Other methods can also separate two cell types but contains more mixed points.  

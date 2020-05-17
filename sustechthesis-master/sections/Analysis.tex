@@ -2,19 +2,37 @@
 % !TEX program  = xelatex
 \section{Analysis of model structure and parameter setting}
 \subsection{Performance of Autoencoder, VAE and ZIVA}
-Our model was adapted from the variational autoencoder (VAE). The major improvement is the zero-inflation layer. So, I analyzed the significance of ZI layer in this part. I performed the Autoencoder, Variational autoencoder and ZIVA to several data and evaluated their performance on visualization and clustering. We performed visualization (Figure \ref{3ae}) and clustering (Table \ref{t3ae} ,Figure \ref{3aeclu}) to the dimensionality reduction results under two dimensions. Both of the visualization and the clustering evaluation show that ZIVA has better performance than autoencoder and variational autoencoder. It is proven that the zero-inflation layer works in our network structure. \\
+Our model was adapted from the variational autoencoder (VAE). The major improvement is the zero-inflation layer. So, I analyzed the significance of ZI layer in this part. I performed the Autoencoder, Variational autoencoder and ZIVA to several data and evaluated their performance on visualization and clustering. We performed visualization (Figure \ref{3ae}) and clustering (Table \ref{t3ae}, Figure \ref{3aeclu}) to the dimensionality reduction results under two dimensions. Both of the visualization and the clustering evaluation show that ZIVA has better performance than autoencoder and variational autoencoder. It is proven that the zero-inflation layer works in our network structure. \\
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/myfigures/3ae.png}
     \caption{Visualization of scRNA-seq datasets using Autoencoder, Variational autoencoder (VAE) and ZIVA}
     \label{3ae}
 \end{figure}
+
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/myfigures/3aeclu.png}
     \caption{Clustering performance comparation among Autoencoder, Variational autoencoder (VAE) and ZIVA}
     \label{3aeclu}
 \end{figure}
+
+\begin{table}[htb!]
+\centering
+\caption{NMI and ARI of clustering performance of Autoencoder, VAE and ZIVA.}
+\label{t3ae}
+\begin{tabular}{lllllll}
+\hline
+  & \multicolumn{3}{l}{NMI} & \multicolumn{3}{l}{ARI} \\ \hline
+  & AE     & VAE    & ZIVA  & AE     & VAE    & ZIVA  \\ \hline
+1 & 0.82   & 0.89   & 0.84  & 0.73   & 0.87   & 0.75  \\
+2 & 0.64   & 0.67   & 0.67  & 0.37   & 0.41   & 0.43  \\
+3 & 0.76   & 0.77   & 0.79  & 0.63   & 0.74   & 0.64  \\
+4 & 0.67   & 0.69   & 0.69  & 0.48   & 0.52   & 0.51  \\
+5 & 0.67   & 0.72   & 0.94  & 0.72   & 0.54   & 0.98  \\
+6 & 0.58   & 0.51   & 0.60  & 0.40   & 0.33   & 0.43  \\ \hline
+\end{tabular}
+\end{table}
 
 \subsection{Analysis of dropout model}
 Then, we tested the performance of two dropout models: the negative binomial model and the Michaelis-Menten model. We tested the performance of clustering on the data reduced to two dimensions by two methods. The result (Figure \ref{nbmmari}, Table \ref{tnbmm}) shows that two model have similar performance on those datasets.
@@ -25,6 +43,23 @@ Then, we tested the performance of two dropout models: the negative binomial mod
     \label{nbmmari}
 \end{figure}
 
+\begin{table}[htb!]
+\centering
+\caption{NMI and ARI of clustering performance of ZIVA under different dropout model.}
+\label{tnbmm}
+\begin{tabular}{lllll}
+\hline
+  & \multicolumn{2}{l}{NMI} & \multicolumn{2}{l}{ARI} \\ \hline
+  & NB         & MM         & NB         & MM         \\ \hline
+1 & 0.84       & 0.84       & 0.75       & 0.78       \\
+2 & 0.67       & 0.63       & 0.41       & 0.34       \\
+3 & 0.79       & 0.87       & 0.64       & 0.78       \\
+4 & 0.69       & 0.68       & 0.52       & 0.51       \\
+5 & 0.94       & 0.83       & 0.98       & 0.67       \\
+6 & 0.61       & 0.64       & 0.44       & 0.47       \\ \hline
+\end{tabular}
+\end{table}
+
 \subsection{Analysis of latent dimensions}
 Then, I tested the clustering performance under different latent dimensions (2, 4, 6, 8, 10, 15, 20, all). The result (Table \ref{dimt}, Figure \ref{dim}) shows that there is no significance difference among different latent dimensions. The performance on 2 dimensions and all dimensions are slightly higher. According to this result, the first two dimension is enough downstream analysis.
 \begin{figure}[htb!]
@@ -33,3 +68,15 @@ Then, I tested the clustering performance under different latent dimensions (2, 
     \caption{Clustering performance (NMI and ARI) of ZIVA under different latent dimensions.}
     \label{dim}
 \end{figure}
+
+\begin{table}[htb!]
+\centering
+\caption{NMI and ARI of clustering performance of ZIVA under different latent dimensions.}
+\label{dimt}
+\begin{tabular}{lllllllll}
+\hline
+    & 2    & 4    & 6    & 8    & 10   & 15   & 20   & All  \\ \hline
+NMI & 0.72 & 0.69 & 0.70 & 0.70 & 0.69 & 0.69 & 0.69 & 0.73 \\
+ARI & 0.51 & 0.43 & 0.46 & 0.46 & 0.46 & 0.45 & 0.44 & 0.52 \\ \hline
+\end{tabular}
+\end{table}
