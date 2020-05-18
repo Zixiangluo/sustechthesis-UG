@@ -2,7 +2,7 @@
 % !TEX program  = xelatex
 \section{Performance assessment}
 \subsection{Simulation data}
-To evaluate the performance of ZIVA, we first performed ZIVA on two datasets simulated by Splatter \cite{zappia2017splatter}. We simulated one datasets of five groups and one dataset of five paths. The percentage of groups were set as 0.1, 0.1, 0.2, 0.2 and 0.4. The differential probability was 0.3. The visualization results are shown in Figure \ref{sim}. It can be seen that ZIVA and correctly distinguish the five groups and paths. However, compared with tSNE and UMAP, the points in ZIVA are more dispersive.
+To evaluate the performance of ZIVA, we first performed ZIVA on two datasets simulated by Splatter \cite{zappia2017splatter}. We simulated one datasets of five groups and one dataset of five paths. The percentage of groups were set as 0.1, 0.1, 0.2, 0.2 and 0.4. The differential probability was 0.3. The paths were set that path 2 and path 3 are developed from path 1. path 4 and path 5 are developed from path 3. The visualization results are shown in Figure \ref{sim}. It can be seen that ZIVA and correctly distinguish the five groups and paths. The group 1 and group 2 are mixed in PCA. UMAP and tSNE can also recover the original structure in the data. However, compared with tSNE and UMAP, the points in ZIVA are more dispersive.
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=1\textwidth]{figures/myfigures/simdata.png}
@@ -10,7 +10,7 @@ To evaluate the performance of ZIVA, we first performed ZIVA on two datasets sim
     \label{sim}
 \end{figure}
 
-\subsection{Visualization}
+\subsection{Visualization performance}
 To evaluate the performance of ZIVA, we tested the visualization result of ZIVA and six other popular methods including PCA \cite{Abdi2010}, tSNE \cite{maaten2008visualizing}, UMAP \cite{McInnes2018}, ZIFA \cite{Pierson2015}, VASC \cite{Wang2018} and ivis \cite{Szubert2019} on 6 datasets with different number of cells and different sequencing protocols (Table \ref{datasets}). The visualization result is shown in Figure \ref{vis}.
 \begin{figure}[htb!]
     \centering
@@ -26,10 +26,10 @@ The Kolodziejczyk dataset contains the embryonic cells grown from three differen
 
 \vspace{0.5cm}
 \noindent\emph{Datasets} \\
-To test the performance of the ZIVA method, seven datasets were used in this study. The first six datasets were downloaded from the Hemberg group (https://hemberg-lab. github.io/scRNA.seq.datasets). The seventh dataset was obtained from GEO database with accession number GSE87375.
+To test the performance of the ZIVA method, seven datasets were used in this study. The first six datasets were downloaded from the Hemberg group (https://hemberg-lab.github.io/scRNA.seq.datasets). The seventh dataset was obtained from GEO database with accession number GSE87375.
 
 \vspace{0.5cm}
-\noindent\emph{Software and packages} \\
+\noindent\emph{Softwares and packages} \\
 The PCA, tSNE and UMAP was performed using the Seurat R package from \url{https://satijalab.org/seurat/}, following the tutorial from \url{https://satijalab.org/seurat/v3.1/pbmc3k_tutorial.html}. It first performs normalization and scaling to the data. Then, run the three dimensionality reduction methods.\\
 The ZIFA, VASC, Ivis codes was download and ran after normalization and scaling of the count data.\\
 The ZIFA was performed using the package from \url{https://github.com/epierson9/ZIFA}, the block algorithm was used.\\
@@ -119,8 +119,10 @@ The results are shown in Figure \ref{nmiallf}, \ref{ariallf} and Table \ref{nmia
 \end{tabular}}
 \end{table}
 
-\subsection{Trajectory inference performance assessment}
-Next, we tested the performance of ZIVA for trajectory cells. We used a dataset for pancreatic a and b cell development \cite{qiu2017deciphering}. They performed the single cell RNA sequencing at several developmental stages of E17.5, P0, P3, P9, P15, P18 and P60 of $a-$ and $b-$ cells that were sorted from mouse strains by fluorescence-activated cell sorting. We performed the PCA, tSNE, UMAP, Ivis and ZIVA to that datasets. The result shows that ZIVA can successfully recover the developmental lineage from both a- and b- pancreatic cells (Figure \ref{traj}). Other methods can also separate two cell types but contains more mixed points.  
+\clearpage
+
+\subsection{Trajectory inference performance}
+Next, we tested the performance of ZIVA for trajectory cells. We used a dataset for pancreatic a and b cell development \cite{qiu2017deciphering}. They performed the single cell RNA sequencing at several developmental stages of E17.5, P0, P3, P9, P15, P18 and P60 of $a-$ and $b-$ cells that were sorted from mouse strains by fluorescence-activated cell sorting. We performed the PCA, tSNE, UMAP, Ivis and ZIVA to that datasets and used Slingshot \cite{street2018slingshot} to build the developmental stages of two types of pancreatic cells. The result shows that ZIVA can successfully separate each type of cells and recover the developmental lineage from both $a-$ and $b-$ pancreatic cells (Figure \ref{traj}). Other methods can also separate two cell types but contains more mixed points.  
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=1\textwidth]{figures/myfigures/traj.png}

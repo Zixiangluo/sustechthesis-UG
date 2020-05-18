@@ -34,8 +34,10 @@ Our model was adapted from the variational autoencoder (VAE). The major improvem
 \end{tabular}
 \end{table}
 
+\clearpage
+
 \subsection{Analysis of dropout model}
-Then, we tested the performance of two dropout models: the negative binomial model and the Michaelis-Menten model. We tested the performance of clustering on the data reduced to two dimensions by two methods. The result (Figure \ref{nbmmari}, Table \ref{tnbmm}) shows that two model have similar performance on those datasets.
+Then, we tested the performance of two dropout models: the double exponential model and the Michaelis-Menten model. We tested the performance of clustering on the data reduced to two dimensions by two methods. The result (Figure \ref{nbmmari}, Table \ref{tnbmm}) shows that two model have similar performance on those datasets.
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/myfigures/nbmmari.png}
@@ -50,7 +52,7 @@ Then, we tested the performance of two dropout models: the negative binomial mod
 \begin{tabular}{lllll}
 \hline
   & \multicolumn{2}{l}{NMI} & \multicolumn{2}{l}{ARI} \\ \hline
-  & NB         & MM         & NB         & MM         \\ \hline
+  & DE         & MM         & DE         & MM         \\ \hline
 1 & 0.84       & 0.84       & 0.75       & 0.78       \\
 2 & 0.67       & 0.63       & 0.41       & 0.34       \\
 3 & 0.79       & 0.87       & 0.64       & 0.78       \\
@@ -59,6 +61,20 @@ Then, we tested the performance of two dropout models: the negative binomial mod
 6 & 0.61       & 0.64       & 0.44       & 0.47       \\ \hline
 \end{tabular}
 \end{table}
+
+\clearpage
+
+\subsection{Analysis of the function of the nuclear norm}
+We added a nuclear norm regularization to the data recovered by the decoder. Because there are only limited number of cell types and the expression matrix is extremely sparse, we assume that the data matrix should have low rank. However, the rank of a matrix is hard to computed and is not convex. Nuclear norm which is also called trace norm is a convex approximation of the rank. It means the summation of the singular values of a matrix. It is a good choice for loss function because it is convex and differentiable. Here, we test the effect of nuclear norm. We chose the weight of the nuclear norm to be 0, 0.0001, 0.001, 0.01 and 0.05 to test its performance. The results are shown in Figure \cite{nuclear}. The effect of nuclear norm is not good and have some bad effects. Because the inputted expression matrix have many noises and thus doesn't have the property of low rank. In this case, if we add such regularization to the output matrix, it will render the effect of the whole model. It shows that nuclear norm here is not suitable.
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/myfigures/nuclear.png}
+    \caption{Clustering performance (NMI and ARI) of ZIVA using different weight of nuclear norm.}
+    \label{nuclear}
+\end{figure}
+
+\clearpage
 
 \subsection{Analysis of latent dimensions}
 Then, I tested the clustering performance under different latent dimensions (2, 4, 6, 8, 10, 15, 20, all). The result (Table \ref{dimt}, Figure \ref{dim}) shows that there is no significance difference among different latent dimensions. The performance on 2 dimensions and all dimensions are slightly higher. According to this result, the first two dimension is enough downstream analysis.
