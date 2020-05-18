@@ -15,11 +15,12 @@ Using Bayes rule and reordering the formula, it is equivalent to maximizing the 
 \end{equation}
 Where $E$ means the expectation of $z$ which is sampled from distribution $Q$. $P(X|z)$ can be modeled by a decoder and $Q(z|X)$ can be modeled by an encoder. The first term can be viewed as the reconstruction loss. The second term minimizes the $KL$-divergence between the latent variable distribution and the normal distribution. It forces the latent variables follow the standard Gaussian distribution.
 \subsection{Model structure}
-The whole structure of ZIVA is shown in Figure 1. The details of model design and optimization algorithms are described as following. 
+The whole structure of ZIVA is shown in Figure \ref{modelstru}. The details of model design and optimization algorithms are described as following. 
 \begin{figure}
     \centering
     \includegraphics[width=1\textwidth]{figures/myfigures/ZIVA.png}
-    \caption{The whole structure of ZIVA}\label{F:test-a}
+    \caption{The whole structure of ZIVA}
+    \label{modelstru}
     ZIVA mainly contain three parts: an encoder network, a decoder network and a zero-inflation model. 
 \end{figure}
 
@@ -31,7 +32,7 @@ The whole structure of ZIVA is shown in Figure 1. The details of model design an
 
 \vspace{0.5cm}
 \noindent\emph{Encoder network} \\
-The encoder network aims to represent the data points in a low-dimensionality latent space. It is composed of three fully connected layers with 512, 128 and 32 hidden units respectively. The first layer doesn’t have activation function. It can be viewed as a PCA transformation which makes the network more robust. Batch normalization layers was added before activation functions to increase the robustness. The l1-regularization was added to this layer which performs the feature selection function by forcing the sparsity of this layer. The last two layer were followed by ReLU activation function that perform non-linear transformation \cite{krizhevsky2012imagenet}.
+The encoder network aims to represent the data points in a low-dimensionality latent space. It is composed of three fully connected layers with 512, 128 and 32 hidden units respectively. The first layer doesn’t have activation function. It can be viewed as a PCA transformation which makes the network more robust. Batch normalization \cite{ioffe2015batch} layers was added before activation functions to increase the robustness and accelerate training. The l1-regularization was added to this layer which performs the feature selection function by forcing the sparsity of this layer. The last two layer were followed by ReLU activation function that perform non-linear transformation \cite{krizhevsky2012imagenet}.
 
 \vspace{0.5cm}
 \noindent\emph{Latent variable layer} \\

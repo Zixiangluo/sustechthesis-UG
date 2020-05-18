@@ -8,7 +8,7 @@
   我们还系统的分析了我们的模型结构和参数选择比如零膨胀层的结构和作用，低秩约束的效果以及中间维度的选择。结果显示我们的模型对于单细胞测序数据的降维是非常有效的。
 \end{中文摘要}
 
-\begin{英文摘要}{scRNA-seq, Dimensionality reduction, Variational autoencoder}
+\begin{英文摘要}{scRNA-seq, VAE}
   Single cell sequencing technology enable us to effectively identify cellular heterogeneity in healthy and disease tissues. Dimensionality reduction of high dimensional expression data is a critical step for the downstream analysis such as cell clustering and lineage inference. In this study, we improved the VASC model and proposed a new method for dimensionality reduction of scRNA-seq data: zero-inflated variational autoencoder (ZIVA).
   
   Based on the variational autoencoder model, we added a dropout layer to model the dropout events in RNA sequencing. We tested the effectiveness of our model and compared its performance on two simulated datasets and six real datasets with six other methods. The result shows that ZIVA can well preserve local and global structures. It can greatly separate cell clusters and recover cell developmental lineages in most cases. Its performance outperforms other methods in some cases. 
