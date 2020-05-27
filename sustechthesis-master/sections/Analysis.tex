@@ -2,7 +2,7 @@
 % !TEX program  = xelatex
 \section{Analysis of model structure and parameter setting}
 \subsection{Performance of Autoencoder, VAE and ZIVA}
-Our model was adapted from the variational autoencoder (VAE). The major improvement is the zero-inflation layer. So, I analyzed the significance of ZI layer in this part. I performed the Autoencoder, Variational autoencoder and ZIVA to several data and evaluated their performance on visualization and clustering. We performed visualization (Figure \ref{3ae}) and clustering (Table \ref{t3ae}, Figure \ref{3aeclu}) to the dimensionality reduction results under two dimensions. Both of the visualization and the clustering evaluation show that ZIVA has better performance than autoencoder and variational autoencoder. It is proven that the zero-inflation layer works in our network structure. \\
+Our model was adapted from the variational autoencoder (VAE). The major improvement is the zero-inflation layer. So, I analyzed the significance of the ZI layer in this part. I performed the Autoencoder, Variational autoencoder, and ZIVA to several data and evaluated their performance on visualization and clustering. We performed visualization (Figure \ref{3ae}) and clustering (Table \ref{t3ae}, Figure \ref{3aeclu}) to the dimensionality reduction results under two dimensions. Both the visualization and the clustering evaluation show that ZIVA performs better than autoencoder and variational autoencoder. It is proven that the zero-inflation layer works in our network structure. \\
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/myfigures/3ae.png}
@@ -37,7 +37,7 @@ Our model was adapted from the variational autoencoder (VAE). The major improvem
 \clearpage
 
 \subsection{Analysis of dropout model}
-Then, we tested the performance of two dropout models: the double exponential model and the Michaelis-Menten model. We tested the performance of clustering on the data reduced to two dimensions by two methods. The result (Figure \ref{nbmmari}, Table \ref{tnbmm}) shows that two model have similar performance on those datasets.
+We then tested the performance of two dropout models: the double exponential model and the Michaelis-Menten model. We tested the performance of clustering on the data reduced to two dimensions by two methods. The result (Figure \ref{nbmmari}, Table \ref{tnbmm}) shows that two models have similar performance on those datasets.
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/myfigures/nbmmari.png}
@@ -65,9 +65,9 @@ Then, we tested the performance of two dropout models: the double exponential mo
 \clearpage
 
 \subsection{Analysis of the function of the nuclear norm}
-When designing the model, we added the third part to the original VAE loss function which is the rank of the output matrix from decoder $\widetilde{\boldsymbol{Y}}$. Because there are only limited number of cell types and the expression matrix is extremely sparse, we assume that the data matrix should have low rank. However, the rank of a matrix is hard to computed and is not convex. Nuclear norm \cite{Zhang_2010} was used to approximate the rank. Nuclear norm is also called trace norm is a convex approximation of the rank. It means the summation of the singular values of a matrix. It is a good choice for loss function because it is convex and differentiable. In this way, the rank of the recovered matrix should be as small as possible because there are only limited number of distinct cell types.
+When designing the model, we added the third part to the original VAE loss function, which is the rank of the output matrix from decoder $\widetilde{\boldsymbol{Y}}$. Because there are only a limited number of cell types and the expression matrix is extremely sparse, we assume that the data matrix should have a low rank. However, the rank of a matrix is hard to computed and is not convex. Nuclear norm \cite{Zhang_2010} was used to approximate the rank. The nuclear norm is also called trace norm, is a convex approximation of the rank. It means the summation of the singular values of a matrix. It is a suitable choice for loss function because it is convex and differentiable. In this way, the recovered matrix's rank should be as small as possible because there are only a limited number of distinct cell types.
 
-Here, we test the effect of nuclear norm. We chose the weight of the nuclear norm to be 0, 0.0001, 0.001, 0.01 and 0.05 to test its performance. The results are shown in Figure \cite{nuclear}. The effect of nuclear norm is not good and have some bad effects. Because the inputted expression matrix have many noises and thus doesn't have the property of low rank. In this case, if we add such regularization to the output matrix, it will render the effect of the whole model. It shows that nuclear norm here is not suitable. Therefore, we finally removed this part in our model structure.
+Here, we test the effect of the nuclear norm. We chose the weight of the nuclear norm to be 0, 0.0001, 0.001, 0.01, and 0.05 to test its performance. The results are shown in Figure \cite{nuclear}. The effect of the nuclear norm is not good and has some harmful effects. Because the inputted expression matrix has many noises and thus does not have the property of low rank, in this case, if we add such regularization to the output matrix, it will render the effect of the whole model. It shows that the nuclear norm here is not suitable. Therefore, we finally removed this part in our model structure.
 
 \begin{figure}[htb!]
     \centering
@@ -79,7 +79,7 @@ Here, we test the effect of nuclear norm. We chose the weight of the nuclear nor
 \clearpage
 
 \subsection{Analysis of latent dimensions}
-Then, I tested the clustering performance under different latent dimensions (2, 4, 6, 8, 10, 15, 20, all). The result (Table \ref{dimt}, Figure \ref{dim}) shows that there is no significance difference among different latent dimensions. The performance on 2 dimensions and all dimensions are slightly higher. According to this result, the first two dimension is enough for downstream analysis. That's suggests that the data of scRNA-seq is extremely sparse.
+I then tested the clustering performance under different latent dimensions (2, 4, 6, 8, 10, 15, 20, all). The result (Table \ref{dimt}, Figure \ref{dim}) shows that there is no significance difference among different latent dimensions. The performance on two dimensions and all dimensions are slightly higher. According to this result, the first two dimensions are enough for downstream analysis. That suggests that the data of scRNA-seq is extremely sparse.
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/myfigures/dim.png}
