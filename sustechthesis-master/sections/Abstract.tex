@@ -1,17 +1,21 @@
 % !Mode:: "TeX:UTF-8"
 % !TEX program  = xelatex
 \begin{中文摘要}{单细胞测序，降维，变分自编码器}
-  单细胞测序技术使我们可以有效的发现组织中细胞间的异质性。降维对聚类和发育轨迹推断等后续分析有着关键的作用。在本研究中，我们基于VASC模型提出了一种新的对单细胞测序数据降维的方法：针对零膨胀数据的变分自编码器（ZIVA）。
+  单细胞测序技术使我们可以有效的发现组织中细胞间的异质性。降维对聚类和发育轨迹推断等后续分析有着关键的作用。在本研究中，我们分析了VAE在降维上的作用并基于VASC模型提出了一种新的对单细胞测序数据降维的方法：针对零膨胀数据的变分自编码器（ZIVA）。
   
   在VAE模型的基础上，我们添加了一个零膨胀层来模拟单细胞测序数据中的数据丢失现象。我们还系统的比较了我们的模型和其他六个常用的方法在两个模拟数据集和六个真实数据集上的表现。结果显示ZIVA可以很好的保留局部信息和全局信息。它能够清晰的分开不同类别的细胞并且能够展现出正确的细胞发育轨迹。在某些任务中，它的表现优于其他方法。
   
   我们还系统的分析了我们的模型结构和参数选择比如零膨胀层的结构和作用，低秩约束的效果以及中间维度的选择。结果显示我们的模型对于单细胞测序数据的降维是非常有效的。
+  
+  最后，我们讨论了一些未来值得尝试的基于VAE的模型。比如深度聚类模型，对抗生成网络，以及图VAE模型。
 \end{中文摘要}
 
 \begin{英文摘要}{scRNA-seq, VAE}
-  Single cell sequencing technology enable us to effectively identify cellular heterogeneity in healthy and disease tissues. Dimensionality reduction of high dimensional expression data is a critical step for the downstream analysis such as cell clustering and lineage inference. In this study, we improved the VASC model and proposed a new method for dimensionality reduction of scRNA-seq data: zero-inflated variational autoencoder (ZIVA).
+  Single cell sequencing technology enable us to effectively identify cellular heterogeneity in healthy and disease tissues. Dimensionality reduction of high dimensional expression data is a critical step for the downstream analysis such as cell clustering and lineage inference. In this study, we analyzed the performance of vae-based model and proposed a new method for dimensionality reduction of scRNA-seq data based on the model of VASC: zero-inflated variational autoencoder (ZIVA).
   
   Based on the variational autoencoder model, we added a dropout layer to model the dropout events in RNA sequencing. We tested the effectiveness of our model and compared its performance on two simulated datasets and six real datasets with six other methods. The result shows that ZIVA can well preserve local and global structures. It can greatly separate cell clusters and recover cell developmental lineages in most cases. Its performance outperforms other methods in some cases. 
   
-  Also, we analysed the structure and parameters of our model and tested its effectiveness of each part of the model. We analyzed the structure and function of dropout layer, the efectiveness of nuclear norm and the choice of latent dimensions. The result shows the components are greatly useful for single cell RNA-seq data dimensionality reduction.
+  Also, we analysed the structure and parameters of our model and tested its effectiveness of each part of the model. We analyzed the structure and function of dropout layer, the efectiveness of nuclear norm and the choice of latent dimensions. The result shows the components are very useful for single cell RNA-seq data dimensionality reduction.
+  
+  Moreover, we give some directions of possible future works including the deep clustering model, VAE-GAN model and the graph VAE model.
 \end{英文摘要}

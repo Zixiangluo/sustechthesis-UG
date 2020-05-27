@@ -1,10 +1,26 @@
 % !Mode:: "TeX:UTF-8"
 % !TEX program  = xelatex
 \section{Methods}
-\subsection{Variational autoencoder}
-I used a modified variational autoencoder \cite{Kingma2014} to reduce the dimensionality of the single cell RNA-seq data. The autoencoder is composed of an encoder network and a decoder network \cite{wang2016auto}. The encoder network aims to model the distribution of the data points $P(x)$ in a high dimensional space $X$ and represents them by low dimensional latent variables $z$. Then, the decoder network maps the low-dimensionality variables $z$ back to the original high dimensional space $X$. To ensure that the generated latent representation $z$ can extract the intrinsic features of the data points, autoencoder tries to keep the reconstructed outputs and the original inputs as close as possible. 
+\subsection{Autoencoder}
+The autoencoder is composed of an encoder network and a decoder network \cite{wang2016auto}. The encoder network aims to model the distribution of the data points $P(x)$ in a high dimensional space $X$ and represents them by low dimensional latent variables $z$. Then, the decoder network maps the low-dimensionality variables $z$ back to the original high dimensional space $X$. To ensure that the generated latent representation $z$ can extract the intrinsic features of the data points, autoencoder tries to keep the reconstructed outputs and the original inputs as close as possible. The structure of an autoencoder are shown in Figure \ref{modelae}
 
-However, the autoencoder only minimize the reconstruction error between the input data and the decoded data. The network is likely to be overfitted, which may cause bad effects to the visualization of data points. So, the variational autoencoder model adds regularizations to the original autoencoder in order to avoid overfitting and get more meaningful visualization results. Instead of encoding the data as a point in the latent space, VAE encodes the data as a distribution in the latent space. A point is sampled from that distribution each time to feed into the decoder network. \\
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/myfigures/ae.png}
+    \caption{The structure of autoencoder}
+    \label{modelae}
+\end{figure}
+
+\subsection{Variational autoencoder}
+However, the autoencoder only minimize the reconstruction error between the input data and the decoded data. The network is likely to be overfitted, which may cause bad effects to the visualization of data points. So, the variational autoencoder model adds regularizations to the original autoencoder in order to avoid overfitting and get more meaningful visualization results. Instead of encoding the data as a point in the latent space, VAE encodes the data as a distribution in the latent space. A point is sampled from that distribution each time to feed into the decoder network. The structure of an autoencoder are shown in Figure \ref{modelvae}
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/myfigures/vae.png}
+    \caption{The structure of variational autoencoder}
+    \label{modelvae}
+\end{figure}
+
 Theoretically, the optimal distribution of $z$ follows the posterior probability $P(z|x)$, which is usually intractable. Therefore, VAE hopes to use a variational probability $Q(z|x)$ to approximate that posterior probability \cite{doersch2016tutorial}. It minimizes the $KL$-divergence between them:
 \begin{equation}
 \boldsymbol{D}[\boldsymbol{Q}(\boldsymbol{z} | \boldsymbol{X}) \| \boldsymbol{P}(\boldsymbol{z} | \boldsymbol{X})]=\mathbf{E}_{z \sim Q}[\log \boldsymbol{Q}(\boldsymbol{z} | \boldsymbol{X})-\log \boldsymbol{P}(\boldsymbol{z} | \boldsymbol{X})]
@@ -14,9 +30,10 @@ Using Bayes rule and reordering the formula, it is equivalent to maximizing the 
 \mathbf{E}_{z \sim Q}[\log \boldsymbol{P}(\boldsymbol{X} | \boldsymbol{z})]-\boldsymbol{D}[\boldsymbol{Q}(\boldsymbol{z} | \boldsymbol{X}) \| \boldsymbol{P}(\boldsymbol{z})]
 \end{equation}
 Where $E$ means the expectation of $z$ which is sampled from distribution $Q$. $P(X|z)$ can be modeled by a decoder and $Q(z|X)$ can be modeled by an encoder. The first term can be viewed as the reconstruction loss. The second term minimizes the $KL$-divergence between the latent variable distribution and the normal distribution. It forces the latent variables follow the standard Gaussian distribution.
+
 \subsection{Model structure}
-The whole structure of ZIVA is shown in Figure \ref{modelstru}. The details of model design and optimization algorithms are described as following. 
-\begin{figure}
+I used a modified variational autoencoder \cite{Kingma2014} to reduce the dimensionality of the single cell RNA-seq data. The whole structure of ZIVA is shown in figure \ref{modelstru}. The details of model design and optimization algorithms are described as following. 
+\begin{figure}[htb!]
     \centering
     \includegraphics[width=1\textwidth]{figures/myfigures/ZIVA.png}
     \caption{The whole structure of ZIVA}
@@ -31,7 +48,7 @@ The whole structure of ZIVA is shown in Figure \ref{modelstru}. The details of m
 
 \vspace{0.5cm}
 \noindent\emph{Encoder network} \\
-The encoder network aims to represent the data points in a low-dimensionality latent space. It is composed of three fully connected layers with 512, 128 and 32 hidden units respectively. The first layer doesn’t have activation function. It can be viewed as a PCA transformation which makes the network more robust. Batch normalization \cite{ioffe2015batch} layers was added before activation functions to increase the robustness and accelerate training. The l1-regularization was added to this layer which performs the feature selection function by forcing the sparsity of this layer. The last two layer were followed by ReLU activation function that perform non-linear transformation \cite{krizhevsky2012imagenet}.
+The encoder network aims to represent the data points in a low-dimensionality latent space. It is composed of three fully connected layers with 1024, 512, 128 and 32 hidden units respectively. The first layer doesn’t have activation function. It can be viewed as a PCA transformation which makes the network more robust. Batch normalization \cite{ioffe2015batch} layers was added before activation functions to increase the robustness and accelerate training. The l1-regularization was added to this layer which performs the feature selection function by forcing the sparsity of this layer. The last two layer were followed by ReLU activation function that perform non-linear transformation \cite{krizhevsky2012imagenet}.
 
 \vspace{0.5cm}
 \noindent\emph{Latent variable layer} \\
@@ -39,7 +56,7 @@ Followed by the last layer of the encoder network with 32 dimensions, the latent
 
 \vspace{0.5cm}
 \noindent\emph{Decoder network} \\
-The decoder network aims to recover the original data points from latent variables z. It contains three fully connected layers with increasing dimensions 32, 128 and 512 respectively and an output layer. All of four layers use ReLU activation function. 
+The decoder network aims to recover the original data points from latent variables z. It contains three fully connected layers with increasing dimensions 32, 128, 512 and 1024 respectively and an output layer. All of four layers use ReLU activation function. 
 
 \vspace{0.5cm}
 \noindent\emph{ZI layer} \\
@@ -66,9 +83,9 @@ where $g0$ and $g1$ were Gumbel noises that are sampled from a Gumbel distributi
 \noindent\emph{Loss function} \\
 \begin{equation}
     \operatorname{Loss}(X, Y)=\text {MSE}(\boldsymbol{X}, \boldsymbol{Y}) + 
-    KL[\boldsymbol{Q}(\boldsymbol{z} | \boldsymbol{X}) \| \boldsymbol{P}(\boldsymbol{z})] + \lambda\|\mathbf{\widetilde{\boldsymbol{Y}}}\|_{*}
+    KL[\boldsymbol{Q}(\boldsymbol{z} | \boldsymbol{X}) \| \boldsymbol{P}(\boldsymbol{z})] 
 \end{equation}
-As shown in the equation3, the first part of the loss function is reconstruction error between input and output data. The second part is the $KL$-divergence between the distribution of $z$ and the standard normal distribution. Also, we added the third part to the original VAE loss function which is the rank of the output matrix from decoder $\widetilde{\boldsymbol{Y}}$ . Nuclear norm was used to approximate the rank. In this way, the rank of the recovered matrix should be as small as possible because there are only limited number of distinct cell types. 
+As shown in the equation3, the first part of the loss function is reconstruction error between input and output data. The second part is the $KL$-divergence between the distribution of $z$ and the standard normal distribution. 
 
 \vspace{0.5cm}
 \noindent\emph{Optimization} \\
