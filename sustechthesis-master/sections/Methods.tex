@@ -31,7 +31,7 @@ Using Bayes rule and reordering the formula, it is equivalent to maximizing the 
 \end{equation}
 Where $E$ means the expectation of $z$ which is sampled from distribution $Q$. $P(X|z)$ can be modeled by a decoder and $Q(z|X)$ can be modeled by an encoder. The first term can be viewed as the reconstruction loss. The second term minimizes the $KL$-divergence between the latent variable distribution and the normal distribution. It forces the latent variables follow the standard Gaussian distribution.
 
-\subsection{Model structure}
+\subsection{ZIVA Model structure}
 A modified variational autoencoder \cite{Kingma2014} is used to reduce the dimensionality of the single-cell RNA-seq data. The whole structure of ZIVA is shown in figure \ref{modelstru}. The details of model design and optimization algorithms are described as following. 
 \begin{figure}[htb!]
     \centering
@@ -78,6 +78,8 @@ However, the backward propagation cannot deal with sampling process because it i
     \boldsymbol{s}=\frac{\boldsymbol{e} \boldsymbol{x} \boldsymbol{p}\left(\frac{\log \boldsymbol{p}+\boldsymbol{g}_{0}}{\tau}\right)}{\boldsymbol{e x p}\left(\frac{\log \boldsymbol{p}+\boldsymbol{g}_{0}}{\tau}\right)+\boldsymbol{e} \boldsymbol{x} \boldsymbol{p}\left(\frac{\log \boldsymbol{q}+\boldsymbol{g}_{1}}{\tau}\right)}
 \end{equation}
 where $g0$ and $g1$ were Gumbel noises that are sampled from a Gumbel distribution. They can be obtained by first sampling $u$ from a uniform distribution $\boldsymbol{u} \sim \text {Uniform}(0,1)$ and then compute $g$ from $\boldsymbol{g}=-\log (-\log \boldsymbol{u})$. Temperature $\tau$ can be set between 0 and 1. As it is closer to 0, the generated sample $s$ will be closer to the samples from the Bernoulli distribution. When $tau$ is too small, the gradient also becomes small and the optimization of the whole network can be hard. Therefore, setting $tau$ to 0.5 is a proper choice. For datasets with large sample sizes, we can use annealing strategy to gradually decrease $tau$.
+
+After the decoder, each data has a probability of being set as zero according to the probability model. Because the model still wants the output to be close to the input, the data output from the decoder should be close to the true count matrix without dropout. Because the decoder tends to recover the true count matrix, the encoder also tends to build the latent variables closer to the real situation. Therefore, the distribution of the latent variable should be closer to the real data.
 
 \vspace{0.5cm}
 \noindent\emph{Loss function} \\
